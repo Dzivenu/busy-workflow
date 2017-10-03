@@ -1,19 +1,28 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Provider } from 'react-redux';
+import { Router, Route, Redirect } from 'react-router';
+import configureStore from './store';
+import createHistory from 'history/createBrowserHistory';
+
+import Main from './containers/Main';
+import Trending from './containers/Trending';
+
+import './styles/App.css';
+
+const store = configureStore();
+const history = createHistory();
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <Provider store={store} key="provider">
+        <Router history={history}>
+          <Main>
+            <Route exact path="/" render={() => <Redirect to="/trending"/>}/>
+            <Route deault path="/trending" component={Trending}/>
+          </Main>
+        </Router>
+      </Provider>
     );
   }
 }
