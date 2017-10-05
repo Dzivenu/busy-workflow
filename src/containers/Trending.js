@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Header from '../components/Header';
 import '../styles/App.css';
 
 class Trending extends Component {
